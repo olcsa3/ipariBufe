@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap');
+
+.nav-brand-custom {
+    font-family: 'Tiny5 Duo', sans-serif; 
+    font-size: 1.8rem !important;              
+    font-weight: 500 !important;                 
+    color: #333333 !important;          
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out; 
+}
+
+.custom-nav-link {
+    font-family: 'Tiny5 Duo', sans-serif;
+    font-size: 1.3rem !important;
+    font-weight: 400 !important;
+    color: #555555 !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out; 
+}
+
+.custom-nav-link:hover,
+.nav-brand-custom:hover {
+    color: #f59e0b !important; 
+}
+
+.custom-nav-link:focus,
+.nav-brand-custom:focus {     
+    color: #f59e0b !important;
+    box-shadow: none;          
+}
+
+.custom-nav-link:active,
+.nav-brand-custom:active {
+    color: #d97706 !important;
+}
+
+:global(.nav-link.active),
+.custom-nav-link:global(.active), 
+.nav-brand-custom:global(.active) {
+    color: #d97706 !important;
+    font-weight: 700 !important;
+}
