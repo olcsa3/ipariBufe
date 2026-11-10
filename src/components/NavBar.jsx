@@ -3,6 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css'
+import { faUser, faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function NavBar(){
     return (
@@ -18,9 +20,11 @@ export default function NavBar(){
                     <Nav className="ms-auto">
                         <Nav.Link as={NavLink} to="kinalat" className={`px-5 ${styles['custom-nav-link']}`}>
                             Kínálat
+                            <FontAwesomeIcon icon={faPizzaSlice} className="ms-2"/>
                         </Nav.Link>
                         <Nav.Link as={NavLink} to="regisztracio" className={`px-5 ${styles['custom-nav-link']}`}>
                             Regisztráció
+                            <FontAwesomeIcon icon={faUser} className={`ms-2 ${styles['icon-circle']}`}/>
                         </Nav.Link>
                     </Nav>
                     </Navbar.Collapse>

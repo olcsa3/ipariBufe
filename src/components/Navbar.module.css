@@ -40,3 +40,8 @@
     color: #d97706 !important;
     font-weight: 700 !important;
 }
+
+.icon-circle {
+    border-radius: 50%;
+    border: 2px solid;
+}
