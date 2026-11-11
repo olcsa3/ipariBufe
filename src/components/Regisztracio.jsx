@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, use } from "react"
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Card } from "react-bootstrap"
@@ -8,8 +8,11 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@ipari\.vein\.hu$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function Regisztracio(){
-    const [name, setName] = useState('');
-    const [validName, setValidName] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [validFirstName, setValidFirstName] = useState(false);
+
+    const [surname, setSurname] = useState('');
+    const [validSurname, setValidSurname] = useState(false)
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
@@ -17,9 +20,16 @@ export default function Regisztracio(){
     const [password, setPassword] = useState('');
     const [validPassword, setValidPassword] = useState(false);
 
+    const [matchPassword, setMatchPassword] = useState('');
+    const [validMatchPassword, setValidMatchPassword] = useState(false);
+
     useEffect(() => {
-        setValidName(name.trim().length >= 3);
-    }, [name]);
+        setValidFirstName(firstName.trim().length >= 3);
+    }, [firstName]);
+
+    useEffect(() => {
+        setValidSurname(surname.trim().length >= 3);
+    }, [surname]);
 
     useEffect(() => {
         setValidEmail(emailRegex.test(email));
@@ -29,14 +39,18 @@ export default function Regisztracio(){
         setValidPassword(passwordRegex.test(password));
     }, [password]);
 
+    useEffect(() => {
+        setValidMatchPassword(matchPassword === password)
+    }, [matchPassword]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!validEmail || !validPassword || !validName) {
+        if (!validEmail || !validPassword || !validFirstName || !validSurname) {
             alert("Kérjük töltsd ki az összes mezőt!"); //Modalra kell módosítani
             return;
         }
 
-        console.log("Sikeres regisztráció! Beküldött adatok:", {name, email, password});
+        console.log("Sikeres regisztráció! Beküldött adatok:", {firstName, surname, email, password});
     }
  
     return (
@@ -45,13 +59,21 @@ export default function Regisztracio(){
                 <Card.Header as="h5">Regisztráció</Card.Header>
                 <Card.Body>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="teljesnev">
-                            Teljes név:
+                        <label htmlFor="keresztnev">
+                            Keresztnév:
                         </label>
                         <br/>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} id="teljesnev" autoComplete="off" required/>
-                        {validName && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
-                        {!validName && name && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
+                        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} id="keresztnev" autoComplete="off" maxLength="15" required/>
+                        {validFirstName && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
+                        {!validFirstName && firstName && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
+                        <br/><br/>
+                        <label htmlFor="vezeteknev">
+                            Vezetéknév:
+                        </label>
+                        <br/>
+                        <input type="text" value={surname} onChange={(e) => setSurname(e.target.value)} id="vezeteknev" autoComplete="off" maxLength="15" required/>
+                        {validSurname && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
+                        {!validSurname && surname && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
                         <br/><br/>
                         <label htmlFor="email">Iskolai e-mail cím:</label>
                         <br/>
@@ -65,7 +87,13 @@ export default function Regisztracio(){
                         {validPassword && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
                         {!validPassword && password && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
                         <br/><br/>
-                        <button type="submit" disabled={!validName || !validEmail || !validPassword}>Regisztrálok!</button>
+                        <label htmlFor="jelszoMegerosites">Jelszó megerősítése:</label>
+                        <br/>
+                        <input type="password" value={matchPassword} onChange={(e) => setMatchPassword(e.target.value)} id="jelszoMegerosites" autoComplete="off" required/>
+                        {validMatchPassword && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
+                        {!validMatchPassword && matchPassword && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
+                        <br/><br/>
+                        <button type="submit" disabled={!validFirstName || !validSurname || !validEmail || !validPassword || !validMatchPassword}>Regisztrálok!</button>
                         <br/><br/>
                         <p>Már van fiókod? <a href="/bejelentkezes">Jelentkezz be!</a></p>
                     </form>
