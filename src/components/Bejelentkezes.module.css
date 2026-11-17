@@ -1,0 +1,29 @@
+.form-input {
+    width: 250px;
+    box-sizing: border-box;
+}
+
+.password-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.password-input {
+    padding-right: 32px;
+}
+
+.toggle-password-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.toggle-password-button:hover {
+    color: #212529;
+}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import NavBar from './components/Navbar'
+import NavBar from './components/NavBar'
 import Kinalat from './components/Kinalat'
 import Regisztracio from './components/Regisztracio'
 import Fooldal from './components/Fooldal'
