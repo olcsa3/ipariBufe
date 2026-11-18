@@ -4,6 +4,7 @@ import styles from "./Bejelentkezes.module.css"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Bejelentkezes(){
+    const [disabled, setDisabled] = useState(false);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -49,9 +50,11 @@ export default function Bejelentkezes(){
                 setEmail('');
                 setPassword('');
 
+                setDisabled(true)
                 setTimeout(() => {
                     window.location.href = "/";
                 }, 1000);
+                
             }
         } catch (err) {
             console.error("Hálózati hiba:", err);
@@ -69,15 +72,15 @@ export default function Bejelentkezes(){
                     {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
                     {successMsg && <div className="alert alert-success">{successMsg}</div>}
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} id="formId">
                         <label htmlFor="email">Fiókod e-mail címe:</label>
                         <br/>
-                        <input className={styles['form-input']} value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" placeholder="@ipari.vein.hu" maxLength="50" required/>
+                        <input className={styles['form-input']} value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} type="email" id="email" placeholder="@ipari.vein.hu" maxLength="50" required/>
                         <br/><br/>
                         <label htmlFor="jelszo">Jelszavad:</label>
                         <br/>
                         <div className={styles['password-wrapper']}>
-                            <input className={`${styles['form-input']} ${styles['password-input']}`} value={password} onChange={(e) => setPassword(e.target.value)} type={showPassword ? "text" : "password"} id="jelszo" maxLength="24" required placeholder="Pl.: Pelda123!"/>
+                            <input className={`${styles['form-input']} ${styles['password-input']}`} value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled} type={showPassword ? "text" : "password"} id="jelszo" maxLength="24" required placeholder="Pl.: Pelda123!"/>
                             <button type="button" className={styles['toggle-password-button']} onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Jelszó elrejtése" : "Jelszó megjelenítése"}>
                                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye}/>
                             </button>

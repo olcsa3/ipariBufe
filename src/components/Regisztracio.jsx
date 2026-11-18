@@ -8,6 +8,8 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@ipari\.vein\.hu$/;
 const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
 
 export default function Regisztracio(){
+    const [disabled, setDisabled] = useState(false);
+
     const [firstName, setFirstName] = useState('');
     const [validFirstName, setValidFirstName] = useState(false);
 
@@ -91,6 +93,10 @@ export default function Regisztracio(){
                 setPassword('');
                 setMatchPassword('');
                 //console.log("Sikeres regisztráció! Beküldött adatok:", {firstName, surname, email, password});
+                setDisabled(true)
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 1000);
             }
         } catch (err) {
             console.error("Hálózati hiba:", err);
@@ -114,7 +120,7 @@ export default function Regisztracio(){
                             Vezetéknév:
                         </label>
                         <br/>
-                        <input className={styles['form-input']} type="text" value={surname} onChange={(e) => setSurname(e.target.value)} id="vezeteknev" autoComplete="off" maxLength="50" required/>
+                        <input className={styles['form-input']} type="text" value={surname} onChange={(e) => setSurname(e.target.value)} disabled={disabled} id="vezeteknev" autoComplete="off" maxLength="50" required/>
                         {validSurname && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
                         {!validSurname && surname && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
                         <br/><br/>
@@ -122,20 +128,20 @@ export default function Regisztracio(){
                             Keresztnév:
                         </label>
                         <br/>
-                        <input className={styles['form-input']} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} id="keresztnev" autoComplete="off" maxLength="50" required/>
+                        <input className={styles['form-input']} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} disabled={disabled} id="keresztnev" autoComplete="off" maxLength="50" required/>
                         {validFirstName && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
                         {!validFirstName && firstName && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
                         <br/><br/>
                         <label htmlFor="email">Iskolai e-mail cím:</label>
                         <br/>
-                        <input className={styles['form-input']} type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="email" placeholder="@ipari.vein.hu" autoComplete="off" maxLength="50" required/>
+                        <input className={styles['form-input']} type="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} id="email" placeholder="@ipari.vein.hu" autoComplete="off" maxLength="50" required/>
                         {validEmail && <FontAwesomeIcon icon={faCheck} className={`ms-2 text-success ${styles['validation-icon']}`}/>}
                         {!validEmail && email && <FontAwesomeIcon icon={faTimes} className={`ms-2 text-danger ${styles['validation-icon']}`}/>}
                         <br/><br/>
                         <label htmlFor="jelszo">Jelszó:</label>
                         <br/>
                         <div className={styles['password-wrapper']}>
-                            <input className={`${styles['form-input']} ${styles['password-input']}`} type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} id="jelszo" autoComplete="new-password" maxLength="24" required placeholder="Pl.: Pelda123!"/>
+                            <input className={`${styles['form-input']} ${styles['password-input']}`} type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled} id="jelszo" autoComplete="new-password" maxLength="24" required placeholder="Pl.: Pelda123!"/>
                             <button type="button" className={styles['toggle-password-button']} onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Jelszó elrejtése" : "Jelszó megjelenítése"}>
                                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye}/>
                             </button>
@@ -146,7 +152,7 @@ export default function Regisztracio(){
                         <label htmlFor="jelszoMegerosites">Jelszó megerősítése:</label>
                         <br/>
                         <div className={styles['password-wrapper']}>
-                            <input className={`${styles['form-input']} ${styles['password-input']}`} type={showMatchPassword ? "text" : "password"} value={matchPassword} onChange={(e) => setMatchPassword(e.target.value)} id="jelszoMegerosites" autoComplete="new-password" maxLength="24" required/>
+                            <input className={`${styles['form-input']} ${styles['password-input']}`} type={showMatchPassword ? "text" : "password"} value={matchPassword} onChange={(e) => setMatchPassword(e.target.value)} disabled={disabled} id="jelszoMegerosites" autoComplete="new-password" maxLength="24" required/>
                             <button type="button" className={styles['toggle-password-button']} onClick={() => setShowMatchPassword(!showMatchPassword)} aria-label={showMatchPassword ? "Jelszó elrejtése" : "Jelszó megjelenítése"}>
                                 <FontAwesomeIcon icon={showMatchPassword ? faEyeSlash : faEye}/>
                             </button>

@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import styles from './Navbar.module.css'
-import { faUser, faPizzaSlice, faRightFromBracket, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faPizzaSlice, faRightFromBracket, faPiggyBank } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function NavBar(){
@@ -61,9 +61,9 @@ export default function NavBar(){
                             Kínálat
                             <FontAwesomeIcon icon={faPizzaSlice} className="ms-2"/>
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="szunetek" className={`px-5 ${styles['custom-nav-link']}`}>
-                            Szünetek
-                            <FontAwesomeIcon icon={faClock} className="ms-2"/>
+                        <Nav.Link as={NavLink} to="ibp" className={`px-5 ${styles['custom-nav-link']}`}>
+                            IBP
+                            <FontAwesomeIcon icon={faPiggyBank} className="ms-2"/>
                         </Nav.Link>
                         {isLoggedIn ? (
                             <Nav.Link as="button" onClick={logoutConfirm} className={`px-5 ${styles['custom-nav-link']}`}>
