@@ -9,4 +9,6 @@ Tagok: Hoffer Tamás, Kész George, Tóth Kristóf
   -főoldal feltöltése card elemekkel
   -kínálat feltöltése
   -szünetek megtekintése navbar menüvel együtt
+  -backend szétbontása külön fájlokra
   -bankó toalett
+  -ibp rendszer kialakítása
