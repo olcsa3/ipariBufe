@@ -1,116 +1,101 @@
-.kinalat {
-    --tinta: #2b211b;
-    --szoveg-halvany: #65584e;
-    --papir: #fff3df;
-    --vonal: #e6cfa8;
-
-    background: var(--papir);
-    color: var(--tinta);
-    padding: 60px 0 90px;
-    font-family: "Figtree", system-ui, sans-serif;
+.oldal {
+  position: relative;
+  flex: 1;
+  padding-bottom: 5.5rem;
+  background: url('../img/hero-hatter.png') center / cover no-repeat fixed;
 }
 
-.cim {
-    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
-    font-size: clamp(2rem, 4vw, 2.6rem);
-    font-weight: 800;
-    margin: 0 0 28px;
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75));
 }
 
-.lista {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 10px;
+.tartalom {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 1rem 2rem;
+  color: #fff;
 }
 
-/* kép | név + ár | gombok (jobb oldalon) */
-.sor {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    align-items: center;
-    gap: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--vonal);
+.fej { margin-bottom: 2.5rem; }
+.fej h1 { font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+.fej p { color: rgba(255, 255, 255, 0.8); }
+
+.kartya {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  border-radius: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.kartya:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+.kivalasztva {
+  border-color: #f76707;
+  box-shadow: 0 0 0 3px rgba(247, 103, 7, 0.35);
 }
 
-/* minden kép ugyanakkora dobozba kerül, torzítás nélkül */
 .kep {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 6px;
+  flex: 0 0 130px;
+  height: 130px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
 }
+.kep img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-.nev {
-    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin: 0 0 2px;
+.adatok { flex: 1; }
+.adatok h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.2rem; }
+.ar { font-size: 1.1rem; opacity: 0.9; margin-bottom: 0.8rem; }
+
+.gombok { display: inline-flex; align-items: center; gap: 0.9rem; }
+.gombok button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #f76707, #e8590c);
+  transition: transform 0.15s, opacity 0.15s;
 }
+.gombok button:hover:not(:disabled) { transform: scale(1.1); }
+.gombok button:disabled { opacity: 0.35; cursor: not-allowed; }
+.db { min-width: 28px; text-align: center; font-size: 1.3rem; font-weight: 700; }
 
-.ar {
-    margin: 0;
-    color: var(--szoveg-halvany);
-    font-weight: 500;
+.kosarSav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 0.9rem 0;
+  color: #fff;
+  background: rgba(20, 20, 20, 0.88);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-
-.mennyiseg {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.kosarInfo { font-size: 1.15rem; }
+.kosarGomb {
+  padding: 0.6rem 2rem;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f76707, #e8590c);
+  box-shadow: 0 6px 16px rgba(232, 89, 12, 0.45);
+  transition: transform 0.2s;
 }
+.kosarGomb:hover { transform: translateY(-2px); }
 
-.gomb:global(.btn) {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border-width: 2px;
-    border-radius: 8px;
-    font-size: 1.3rem;
-    line-height: 1;
-}
-
-.gomb:global(.btn):focus-visible {
-    outline: 3px solid var(--tinta);
-    outline-offset: 2px;
-}
-
-.leadasgomb:global(.btn) {
-    width: 120px;
-    height: 50px;
-    padding: 0;
-    border-width: 2px;
-    border-radius: 8px;
-    font-size: 1.3rem;
-    line-height: 1;
-}
-
-.leadasgomb:global(.btn):focus-visible {
-    outline: 3px solid var(--tinta);
-    outline-offset: 2px;
-}
-
-.szam {
-    min-width: 2ch;
-    text-align: center;
-    font-size: 1.15rem;
-    font-weight: 700;
-}
-
-@media (max-width: 576px) {
-    .kinalat {
-        padding: 40px 0 60px;
-    }
-
-    .sor {
-        grid-template-columns: 48px 1fr auto;
-        gap: 12px;
-    }
-
-    .kep {
-        width: 48px;
-        height: 48px;
-    }
+@media (max-width: 575px) {
+  .kep { flex-basis: 100px; height: 100px; }
 }
