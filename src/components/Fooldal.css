@@ -1,0 +1,334 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600&display=swap");
+
+/* ALAPOK */
+
+.fooldal {
+    --tinta: #2b211b;
+    --szoveg-halvany: #65584e;
+    --papir: #fff3df;
+    --papir-vilagos: #fffaf2;
+    --papir-sotet: #f4e3c8;
+    --vonal: #e6cfa8;
+    --sarga: #f5a623;
+    --sarga-sotet: #b86a0a;
+
+    background: var(--papir);
+    color: var(--tinta);
+    overflow: hidden;
+    font-family: "Figtree", system-ui, sans-serif;
+}
+
+.fooldal h1,
+.fooldal h2,
+.fooldal h4,
+.fooldal .card-title {
+    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+}
+
+.fooldal section {
+    position: relative;
+}
+
+/* HERO – a háttérkép marad, a kép elérési útja csak egyszer szerepel */
+
+.hero-section {
+    min-height: 650px;
+    padding: 110px 0;
+    background-image: url("../img/hero-hatter.png");
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* a krémszínű átfedés külön rétegen van, így mobilon csak ezt kell állítani */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 243, 223, 0.95) 0%,
+        rgba(255, 243, 223, 0.75) 40%,
+        rgba(255, 243, 223, 0.1) 100%
+    );
+}
+
+.hero-section::after {
+    display: none;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transform: rotate(-2deg);
+    background-color: var(--sarga) !important;
+    color: var(--tinta) !important;
+}
+
+.hero-section h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 18px 0 22px;
+    color: var(--tinta);
+}
+
+.hero-section h1 span {
+    display: block;
+    color: inherit;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--szoveg-halvany);
+    max-width: 34rem;
+    margin-bottom: 30px;
+}
+
+.hero-button {
+    background: var(--sarga) !important;
+    color: var(--tinta) !important;
+    border: 2px solid var(--tinta) !important;
+    border-bottom-width: 4px !important;
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    transition: transform 0.1s ease, border-bottom-width 0.1s ease;
+}
+
+.hero-button:hover {
+    transform: translateY(2px);
+    border-bottom-width: 2px !important;
+}
+
+.hero-button:focus-visible {
+    outline: 3px solid var(--tinta);
+    outline-offset: 3px;
+}
+
+/* MIÉRT ÉRDEMES – lapos oszlopok, nem kártyák */
+
+.purpose-section {
+    padding: 90px 0;
+    background: var(--papir-vilagos);
+}
+
+.section-heading {
+    max-width: 640px;
+    text-align: left;
+    margin: 0 0 44px;
+}
+
+.section-heading .badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    background: var(--sarga) !important;
+    color: var(--tinta) !important;
+    margin-bottom: 14px;
+}
+
+.section-heading h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 10px 0 14px;
+    color: var(--tinta);
+}
+
+.section-heading p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--szoveg-halvany);
+    max-width: 60ch;
+}
+
+.fooldal .info-card {
+    background: transparent;
+    border: 0 !important;
+    border-top: 2px solid var(--tinta) !important;
+    border-radius: 0 !important;
+    box-shadow: none;
+    padding: 18px 4px 0;
+}
+
+.fooldal .info-card .card-body {
+    padding: 0;
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.info-card .card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin-bottom: 8px;
+}
+
+.info-card .card-text {
+    color: var(--szoveg-halvany);
+    line-height: 1.65;
+}
+
+/* RENDELÉS LÉPÉSEI */
+
+.steps-section {
+    padding: 90px 0;
+    background: var(--papir-sotet);
+}
+
+.step-card {
+    height: 100%;
+    background: var(--papir-vilagos);
+    border: 1px solid var(--vonal);
+    border-radius: 10px;
+    padding: 30px 26px 26px;
+    position: relative;
+}
+
+.step-number {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--sarga-sotet);
+}
+
+.step-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+}
+
+.step-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--tinta);
+}
+
+.step-card p {
+    margin: 0;
+    color: var(--szoveg-halvany);
+    line-height: 1.65;
+}
+
+/* ALSÓ RÉSZ – az egyetlen "hangos" elem az oldalon */
+
+.cta-section {
+    padding: 70px 0 90px;
+    background: var(--papir-vilagos);
+}
+
+.cta-box {
+    background: var(--sarga);
+    border: 2px solid var(--tinta);
+    border-radius: 12px;
+    box-shadow: 6px 6px 0 var(--tinta);
+    padding: 44px 32px;
+    text-align: left;
+    color: var(--tinta);
+}
+
+.cta-box::before,
+.cta-box::after {
+    display: none;
+}
+
+.cta-box h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+}
+
+.cta-box p {
+    font-size: 1.1rem;
+    margin: 16px 0 0;
+    color: var(--tinta);
+}
+
+/* MOBILNÉZET */
+
+@media (max-width: 991px) {
+    .hero-section {
+        min-height: 550px;
+        padding: 75px 0;
+        background-position: 65% center;
+    }
+
+    .hero-section::before {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 243, 223, 0.96) 0%,
+            rgba(255, 243, 223, 0.85) 55%,
+            rgba(255, 243, 223, 0.4) 100%
+        );
+    }
+
+    .hero-description {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 65px 0;
+    }
+
+    .hero-section::before {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 243, 223, 0.94),
+            rgba(255, 243, 223, 0.75)
+        );
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .purpose-section,
+    .steps-section {
+        padding: 60px 0;
+    }
+
+    .section-heading {
+        margin-bottom: 30px;
+    }
+
+    .cta-section {
+        padding: 50px 0 70px;
+    }
+
+    .cta-box {
+        padding: 32px 20px;
+        box-shadow: 4px 4px 0 var(--tinta);
+    }
+
+    .step-card {
+        padding: 26px 22px 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-button {
+        transition: none;
+    }
+}

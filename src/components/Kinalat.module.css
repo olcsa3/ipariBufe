@@ -1,0 +1,116 @@
+.kinalat {
+    --tinta: #2b211b;
+    --szoveg-halvany: #65584e;
+    --papir: #fff3df;
+    --vonal: #e6cfa8;
+
+    background: var(--papir);
+    color: var(--tinta);
+    padding: 60px 0 90px;
+    font-family: "Figtree", system-ui, sans-serif;
+}
+
+.cim {
+    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin: 0 0 28px;
+}
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+/* kép | név + ár | gombok (jobb oldalon) */
+.sor {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--vonal);
+}
+
+/* minden kép ugyanakkora dobozba kerül, torzítás nélkül */
+.kep {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 6px;
+}
+
+.nev {
+    font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+}
+
+.ar {
+    margin: 0;
+    color: var(--szoveg-halvany);
+    font-weight: 500;
+}
+
+.mennyiseg {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gomb:global(.btn) {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-width: 2px;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.gomb:global(.btn):focus-visible {
+    outline: 3px solid var(--tinta);
+    outline-offset: 2px;
+}
+
+.leadasgomb:global(.btn) {
+    width: 120px;
+    height: 50px;
+    padding: 0;
+    border-width: 2px;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.leadasgomb:global(.btn):focus-visible {
+    outline: 3px solid var(--tinta);
+    outline-offset: 2px;
+}
+
+.szam {
+    min-width: 2ch;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+@media (max-width: 576px) {
+    .kinalat {
+        padding: 40px 0 60px;
+    }
+
+    .sor {
+        grid-template-columns: 48px 1fr auto;
+        gap: 12px;
+    }
+
+    .kep {
+        width: 48px;
+        height: 48px;
+    }
+}
