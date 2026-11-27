@@ -48,7 +48,7 @@ export default function NavBar(){
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-body-tertiary sticky-top">
                 <Container>
                     <Navbar.Brand as={NavLink} to="/" className={styles['nav-brand-custom']}>
                             <img src='src/img/logo.png' width="120" height="100" alt='logo'></img>
@@ -57,21 +57,21 @@ export default function NavBar(){
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link as={NavLink} to="kinalat" className={`px-5 ${styles['custom-nav-link']}`}>
+                        <Nav.Link as={NavLink} to="kinalat" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
                             Kínálat
                             <FontAwesomeIcon icon={faPizzaSlice} className="ms-2"/>
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="ibp" className={`px-5 ${styles['custom-nav-link']}`}>
+                        <Nav.Link as={NavLink} to="ibp" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
                             IBP
                             <FontAwesomeIcon icon={faPiggyBank} className="ms-2"/>
                         </Nav.Link>
                         {isLoggedIn ? (
-                            <Nav.Link as="button" onClick={logoutConfirm} className={`px-5 ${styles['custom-nav-link']}`}>
+                            <Nav.Link as="button" onClick={logoutConfirm} className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
                                 Kijelentkezés
                                 <FontAwesomeIcon icon={faRightFromBracket} className="ms-2"/>
                             </Nav.Link>
                         ) : (
-                            <Nav.Link as={NavLink} to="regisztracio" className={`px-5 ${styles['custom-nav-link']}`}>
+                            <Nav.Link as={NavLink} to="regisztracio" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
                                 Regisztráció
                                 <FontAwesomeIcon icon={faUser} className={`ms-2`}/>
                             </Nav.Link>
