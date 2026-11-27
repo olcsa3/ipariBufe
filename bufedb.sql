@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Nov 10. 11:45
--- Kiszolgáló verziója: 9.7.2
--- PHP verzió: 8.5.12
+-- Létrehozás ideje: 2026. Nov 27. 11:06
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `breaks` (
-  `id` int NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_hungarian_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
@@ -41,10 +41,10 @@ CREATE TABLE `breaks` (
 --
 
 CREATE TABLE `favorites` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -54,13 +54,13 @@ CREATE TABLE `favorites` (
 --
 
 CREATE TABLE `orders` (
-  `id` int NOT NULL,
-  `order_number` varchar(20) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `user_id` int NOT NULL,
-  `break_id` int NOT NULL,
-  `status` varchar(20) COLLATE utf8mb4_hungarian_ci DEFAULT 'pending',
-  `total_price` int NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `order_number` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `break_id` int(11) NOT NULL,
+  `status` varchar(20) DEFAULT 'pending',
+  `total_price` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -70,10 +70,10 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `order_items` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `quantity` int NOT NULL
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -83,13 +83,13 @@ CREATE TABLE `order_items` (
 --
 
 CREATE TABLE `products` (
-  `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `description` text COLLATE utf8mb4_hungarian_ci,
-  `price` int NOT NULL,
-  `category` varchar(20) COLLATE utf8mb4_hungarian_ci DEFAULT NULL,
-  `stock` int NOT NULL DEFAULT '0',
-  `image_url` varchar(255) COLLATE utf8mb4_hungarian_ci DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `category` varchar(20) DEFAULT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  `image_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
@@ -97,8 +97,27 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `category`, `stock`, `image_url`) VALUES
-(1, 'Kolbászos melegszendvics', 'finom meleg', 850, 'Melegszendvics', 7, NULL),
-(2, 'Kukoricás pizza', 'kukcsács', 850, 'Pizza', 4, NULL);
+(1, 'Nagy bismarck', NULL, 880, 'Édes', 0, NULL),
+(2, 'Bismarck', NULL, 630, 'Édes', 0, NULL),
+(3, 'Isler', NULL, 680, 'Édes', 0, NULL),
+(4, 'Brownie', NULL, 880, 'Édes', 0, NULL),
+(5, 'Kókusz kocka', NULL, 680, 'Édes', 0, NULL),
+(6, 'Virslis csónak', NULL, 730, 'Húsos, sós', 0, NULL),
+(7, 'Sajtos pogácsa', NULL, 630, 'Sós', 0, NULL),
+(8, 'Molnárka', NULL, 710, 'Édes', 0, NULL),
+(9, 'Csokis croissant', NULL, 680, 'Édes', 0, NULL),
+(10, 'Sós kifli', NULL, 430, 'Sós', 0, NULL),
+(11, 'Szalámis szendvics', 'Magos zsemlében', 680, 'Húsos, sós', 0, NULL),
+(12, 'Rántott húsos szendvics', NULL, 980, 'Húsos, sós', 0, NULL),
+(13, 'Szalámis melegszendics', NULL, 780, 'Húsos, sós', 0, NULL),
+(14, 'Kakaós csiga', NULL, 680, 'Édes', 0, NULL),
+(15, 'Csokis csiga', NULL, 680, 'Édes', 0, NULL),
+(16, 'Pizzás csiga', NULL, 630, 'Sós', 0, NULL),
+(17, 'Croissant', NULL, 680, 'Édes', 0, NULL),
+(18, 'Rántott sajtos szendvics', NULL, 980, 'Sós', 0, NULL),
+(19, 'Sonkás melegszendvics', NULL, 780, 'Húsos, sós', 0, NULL),
+(20, 'Kolbászos pizzaszelet', NULL, 850, 'Húsos, sós', 0, NULL),
+(21, 'Kukoricás pizzaszelet', NULL, 750, 'Húsos, sós', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,9 +126,9 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `category`, `stock
 --
 
 CREATE TABLE `roles` (
-  `id` int NOT NULL,
-  `name` varchar(20) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `description` varchar(100) COLLATE utf8mb4_hungarian_ci DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -119,14 +138,26 @@ CREATE TABLE `roles` (
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `full_name` varchar(50) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `password_hash` varchar(255) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `role_id` int DEFAULT NULL,
-  `class_name` varchar(10) COLLATE utf8mb4_hungarian_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `class_name` varchar(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `surname`, `email`, `password_hash`, `role_id`, `class_name`, `created_at`) VALUES
+(1, 'Dzsordzs', 'Kész', '22c-kesz@ipari.vein.hu', '$2b$10$yHMg2NclmkEqPPN04K37Z.B2BsAbmXerj3hgkAUyYdcGBD.qWpDdu', NULL, NULL, '2026-11-18 09:59:53'),
+(2, 'Tamás', 'Hoffer', '22c-hoffer@ipari.vein.hu', '$2b$10$/RdzqtU9/p.e8Nk354ojSOlUkuV7fWWoi4fVcHBGaettWoF0EhCCe', NULL, NULL, '2026-11-18 10:00:43'),
+(3, 'Kristóf', 'Tóth', '22c-toth@ipari.vein.hu', '$2b$10$VyHUq2CaDdI5y4u334xqB.gYi1SQ4CjQbhTe4z3RxVtljPuzyJYeG', NULL, NULL, '2026-11-18 10:01:52'),
+(4, 'Patrik', 'Pók', '22c-pok@ipari.vein.hu', '$2b$10$7s7YuDodr.rnI02QrI99XOh/kOXVhPc9FgLFHdbfWQ/WJMC038Cqa', NULL, NULL, '2026-11-18 10:24:32'),
+(5, 'Olcsa', 'Bankett', '22c-banko@ipari.vein.hu', '$2b$10$doVtIJ5SlTorFY39FZ6uVOdbCbJOoGfd1fpyLcfyC1TXbO/SVUnEq', NULL, NULL, '2026-11-25 11:16:14');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -191,43 +222,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `breaks`
 --
 ALTER TABLE `breaks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT a táblához `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Megkötések a kiírt táblákhoz
