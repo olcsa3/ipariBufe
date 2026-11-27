@@ -1,102 +1,62 @@
-import { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faPizzaSlice,
+  faPiggyBank,
+  faUser,
+  faRightToBracket,
+  faBars,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
+import logo from '../img/logo.png'
 import styles from './Navbar.module.css'
-import { faUser, faPizzaSlice, faRightFromBracket, faPiggyBank } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function NavBar(){
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
-    const navigate = useNavigate();
+const LINKEK = [
+  { to: '/kinalat', label: 'Kínálat', icon: faPizzaSlice },
+  { to: '/ibp', label: 'IBP', icon: faPiggyBank },
+  { to: '/regisztracio', label: 'Regisztráció', icon: faUser },
+]
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+export default function NavBar() {
+  const [nyitva, setNyitva] = useState(false)
+  const bezar = () => setNyitva(false)
 
-    useEffect(() => {
-        const checkAuthStatus = () => {
-            setIsLoggedIn(!!localStorage.getItem('token'));
-        };
+  const linkOsztaly = ({ isActive }) => `${styles.link} ${isActive ? styles.aktiv : ''}`
 
-        window.addEventListener('authChange', checkAuthStatus);
-        window.addEventListener('storage', checkAuthStatus);
+  return (
+    <header className={styles.header}>
+      <div className={styles.sav}>
+        <Link to="/" className={styles.brand} onClick={bezar}>
+          <img src={logo} alt="Veszprémi Szakképzési Centrum Ipari Technikum" className={styles.logo} />
+          <span className={styles.szoveg}>
+            <span className={styles.nev}>Ipari Büfé</span>
+            <span className={styles.alcim}>Előrendelés</span>
+          </span>
+        </Link>
 
-        return () => {
-            window.removeEventListener('authChange', checkAuthStatus);
-            window.removeEventListener('storage', checkAuthStatus);
-        };
-    }, [])
+        <button
+          type="button"
+          className={styles.hamburger}
+          aria-label={nyitva ? 'Menü bezárása' : 'Menü megnyitása'}
+          aria-expanded={nyitva}
+          onClick={() => setNyitva((n) => !n)}
+        >
+          <FontAwesomeIcon icon={nyitva ? faXmark : faBars} />
+        </button>
 
-    const logoutConfirm = (e) => {
-        e.preventDefault();
-        handleShow();
-        e.currentTarget.blur();
-    }
+        <nav className={`${styles.menu} ${nyitva ? styles.nyitva : ''}`}>
+          {LINKEK.map((l) => (
+            <NavLink key={l.to} to={l.to} className={linkOsztaly} onClick={bezar}>
+              {l.label} <FontAwesomeIcon icon={l.icon} className={styles.ikon} />
+            </NavLink>
+          ))}
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setIsLoggedIn(false);
-        window.dispatchEvent(new Event("authChange"));
-        navigate('/');
-        handleClose();
-    }
-
-    return (
-        <>
-            <Navbar expand="lg" className="bg-body-tertiary sticky-top">
-                <Container>
-                    <Navbar.Brand as={NavLink} to="/" className={styles['nav-brand-custom']}>
-                            <img src='src/img/logo.png' width="120" height="100" alt='logo'></img>
-                            <span>Ipari Büfé</span>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ms-auto">
-                        <Nav.Link as={NavLink} to="kinalat" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
-                            Kínálat
-                            <FontAwesomeIcon icon={faPizzaSlice} className="ms-2"/>
-                        </Nav.Link>
-                        <Nav.Link as={NavLink} to="ibp" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
-                            IBP
-                            <FontAwesomeIcon icon={faPiggyBank} className="ms-2"/>
-                        </Nav.Link>
-                        {isLoggedIn ? (
-                            <Nav.Link as="button" onClick={logoutConfirm} className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
-                                Kijelentkezés
-                                <FontAwesomeIcon icon={faRightFromBracket} className="ms-2"/>
-                            </Nav.Link>
-                        ) : (
-                            <Nav.Link as={NavLink} to="regisztracio" className={`px-5 py-3 py-lg-2 ${styles['custom-nav-link']}`}>
-                                Regisztráció
-                                <FontAwesomeIcon icon={faUser} className={`ms-2`}/>
-                            </Nav.Link>
-                        )}
-                    </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Megerősítés szükséges!</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Biztosan ki szeretnél jelentkezni?
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Mégsem
-                    </Button>
-                    <Button variant="primary" onClick={handleLogout}>
-                        Kijelentkezés
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    )
+          <NavLink to="/bejelentkezes" className={styles.belepes} onClick={bezar}>
+            <FontAwesomeIcon icon={faRightToBracket} /> Bejelentkezés
+          </NavLink>
+        </nav>
+      </div>
+    </header>
+  )
 }
